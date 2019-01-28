@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/sirene', { useNewUrlParser: true });
+mongoose.connect('mongodb://mehdi:mehdi@51.75.254.172:27017/ptut2018', { useNewUrlParser: true });
 
 var companyRouter = require('./routes/company');
 

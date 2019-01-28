@@ -7,7 +7,6 @@ var omit = require('lodash/omit');
 /* GET all companies */
 router.get('/', function(req, res) {
     var fields = omit(req.query, ["long", "lat", "range"]);
-    console.log(fields);
     Company.find({geometry: {
             $near: {
                 $geometry: {
