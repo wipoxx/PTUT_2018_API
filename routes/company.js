@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Company = require('../model/company');
-var JSONStream = require('JSONStream');
 var omit = require('lodash/omit');
 
 /* GET all companies */
@@ -17,10 +16,12 @@ router.get('/', function(req, res) {
             }
         },
         ...fields
+    }, function(err, values) {
+        if (err)
+            res.send(err);
+
+        res.json(values);
     })
-    .cursor()
-    .pipe(JSONStream.stringify())
-    .pipe(res.type('json'))
 });
 
 router.get('/:attribute', function(req, res) {
