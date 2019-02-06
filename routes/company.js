@@ -53,7 +53,17 @@ router.get('/stats/activities/', function (req, res) {
 
 /* Get all values of an attribute */
 router.get('/:attribute', function (req, res) {
-    Company.distinct(req.params.attribute, function (err, values) {
+    Company.distinct(req.params.attribute, {
+            geometry: {
+                $near: {
+                    $geometry: {
+                        type: 'Point',
+                        coordinates: [req.query.long, req.query.lat]
+                    },
+                    $maxDistance: req.query.range
+                }
+            }
+        } , function (err, values) {
         if (err)
             res.send(err);
 
