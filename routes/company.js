@@ -33,7 +33,8 @@ router.get('/stats/activities/', function (req, res) {
                 type: 'Point',
                 coordinates: [parseFloat(req.query.long), parseFloat(req.query.lat)]
             },
-            distanceField: req.query.range
+            distanceField: req.query.range,
+            spherical: true
         }
     },
         {
