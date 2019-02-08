@@ -28,7 +28,6 @@ router.get("/", function(req, res) {
 });
 
 /* GET number of companies by activity*/
-<<<<<<< HEAD
 router.get('/stats/activities/', function (req, res) {
     Company.aggregate([{
         $geoNear: {
@@ -53,34 +52,6 @@ router.get('/stats/activities/', function (req, res) {
         }], function (err, values) {
         if (err)
             res.send(err);
-=======
-router.get("/stats/activities/", function(req, res) {
-	Company.aggregate(
-		[
-			{
-				$geoNear: {
-					near: {
-						type: "Point",
-						coordinates: [
-							parseFloat(req.query.long),
-							parseFloat(req.query.lat),
-						],
-					},
-					distanceField: req.query.range,
-				},
-			},
-			{
-				$group: {
-					_id: "$section",
-					count: {
-						$sum: 1,
-					},
-				},
-			},
-		],
-		function(err, values) {
-			if (err) res.send(err);
->>>>>>> stat_chom_recens
 
 			res.json(values);
 		},
@@ -88,7 +59,6 @@ router.get("/stats/activities/", function(req, res) {
 });
 
 /* Get all values of an attribute */
-<<<<<<< HEAD
 router.get('/:attribute', function (req, res) {
     Company.distinct(req.params.attribute, {
             geometry: {
@@ -103,11 +73,6 @@ router.get('/:attribute', function (req, res) {
         } , function (err, values) {
         if (err)
             res.send(err);
-=======
-router.get("/:attribute", function(req, res) {
-	Company.distinct(req.params.attribute, function(err, values) {
-		if (err) res.send(err);
->>>>>>> stat_chom_recens
 
 		res.json(values);
 	});
