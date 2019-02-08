@@ -67,14 +67,18 @@ router.get("/recensement", (req, res) => {
 		resCodePos.on("data", chunk => {
 			var codePos = JSON.parse(chunk).features[0].properties.postcode;
 			console.log(codePos);
-
-			Recensement.find({ codegeo: codePos }, (err, values) => {
-				if (err) {
-					console.error(err);
-				}
-				console.log(values);
-				res.json(values);
-			}).catch(err => console.log(err));
+			Recensement.find(
+				{
+					codgeo: codePos,
+				},
+				(err, values) => {
+					if (err) {
+						console.error(err);
+					}
+					console.log("values: " + values);
+					res.json(values);
+				},
+			).catch(err => console.log(err));
 		});
 	});
 	reqCodePos.on("error", function(e) {
