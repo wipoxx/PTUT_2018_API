@@ -37,19 +37,17 @@ router.get("/chomage", function(req, res) {
 	const reqCodePos = https.request(options, resCodePos => {
 		resCodePos.on("data", chunk => {
 			var codePos = JSON.parse(chunk).features[0].properties.postcode;
-			console.log(codePos);
 
 			Chomage.find({ code: codePos[0] + codePos[1] }, (err, values) => {
 				if (err) {
 					console.error(err);
 				}
-				console.log(values);
 				res.json(values);
-			}).catch(err => console.log(err));
+			}).catch(err => console.error(err));
 		});
 	});
 	reqCodePos.on("error", function(e) {
-		console.log("problem with request: " + e.message);
+		console.error("problem with request: " + e.message);
 	});
 	reqCodePos.end();
 });
@@ -66,7 +64,6 @@ router.get("/recensement", (req, res) => {
 	const reqCodePos = https.request(options, resCodePos => {
 		resCodePos.on("data", chunk => {
 			var codePos = JSON.parse(chunk).features[0].properties.postcode;
-			console.log(codePos);
 			Recensement.find(
 				{
 					codgeo: codePos,
@@ -75,14 +72,13 @@ router.get("/recensement", (req, res) => {
 					if (err) {
 						console.error(err);
 					}
-					console.log("values: " + values);
 					res.json(values);
 				},
-			).catch(err => console.log(err));
+			).catch(err => console.error(err));
 		});
 	});
 	reqCodePos.on("error", function(e) {
-		console.log("problem with request: " + e.message);
+		console.error("problem with request: " + e.message);
 	});
 	reqCodePos.end();
 });
